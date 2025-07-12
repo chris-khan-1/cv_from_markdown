@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+export FIRST_NAME="John"
+export LAST_NAME="Doe"
+
