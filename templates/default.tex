@@ -1,0 +1,236 @@
+% Pass options to the document class
+$passoptions.latex()$
+
+% Define the document class with options
+\documentclass[
+  $if(fontsize)$
+    $fontsize$, % Set the font size if specified
+  $endif$
+  $if(papersize)$
+    $papersize$paper, % Set the paper size if specified
+  $endif$
+  $for(classoption)$
+    $classoption$$sep$, % Add any additional class options
+  $endfor$
+]{$documentclass$} % Specify the document class
+
+% Packages and configurations
+\usepackage{tcolorbox}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage{fontspec}
+\usepackage{hyperref}
+\usepackage[margin=1.5cm]{geometry}
+\usepackage{amsmath,amssymb}
+$if(beamerarticle)$
+\usepackage{beamerarticle} % needs to be loaded first if beamerarticle is used
+$endif$
+
+% Box style configuration
+\newtcolorbox{titlebox}{
+  colback=white,
+  boxrule=0.5pt,
+  arc=0pt,
+  left=10pt,
+  right=10pt,
+  top=10pt,
+  bottom=10pt,
+  boxsep=5pt,
+  width=\textwidth
+}
+
+% Section styling configuration
+\titleformat{\section}
+  {\normalfont\LARGE\bfseries}  % format - largest
+  {}
+  {0em}
+  {}
+  [\titlerule]
+
+\titleformat{\subsection}
+  {\normalfont\Large\bfseries}  % format - medium
+  {}
+  {0em}
+  {}
+  [\titlerule]
+
+\titleformat{\subsubsection}
+  {\normalfont\large\bfseries}  % format - smaller but still prominent
+  {}
+  {0em}
+  {}
+
+  \titleformat{\paragraph}
+  {\normalfont\normalsize\itshape}  % Smallest heading, italic and grey
+  {}
+  {0em}
+  {}
+
+  % Section spacing configuration
+\titlespacing*{\section}
+{0pt}  % left margin
+{0pt} % space before
+{3pt}  % space after
+
+\titlespacing*{\subsection}
+{0pt}
+{8pt}
+{6pt}
+
+\titlespacing*{\subsubsection}
+{0pt}
+{12pt}  % reduced space before
+{0pt}  % reduced space after
+
+\titlespacing*{\paragraph}
+{0pt}
+{12pt}
+{6pt}
+
+% Font configuration
+\defaultfontfeatures{Mapping=tex-text}
+$if(mainfont)$
+\setmainfont{$mainfont$}
+$else$
+\setmainfont{Calibri}
+$endif$
+
+% Hyperref configuration
+\hypersetup{
+    colorlinks=true,
+    urlcolor=blue, % Set URL color to blue
+    linkcolor=blue, % Set link color to blue
+    citecolor=red % Set citation color to red
+}
+
+% Section numbering configuration
+$if(numbersections)$
+\setcounter{secnumdepth}{$if(secnumdepth)$$secnumdepth$$else$5$endif$} % Set section numbering depth
+$else$
+\setcounter{secnumdepth}{-\maxdimen} % Remove section numbering
+$endif$
+
+% Include additional LaTeX configurations
+$fonts.latex()$
+$font-settings.latex()$
+$common.latex()$
+
+% Include any header includes specified
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+% Include any after-header includes specified
+$after-header-includes.latex()$
+$hypersetup.latex()$
+
+% Title configuration
+$if(title)$
+\title{$title$$if(thanks)$\thanks{$thanks$}$endif$} % Set the title and thanks if specified
+$endif$
+
+% Subtitle configuration
+$if(subtitle)$
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% Add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{$subtitle$} % Set the subtitle if specified
+$endif$
+
+% Author and date configuration
+\author{$for(author)$$author$$sep$ \and $endfor$} % Set the authors
+\date{$date$} % Set the date
+
+\raggedright
+
+\begin{document}
+
+% Front matter configuration
+$if(has-frontmatter)$
+\frontmatter
+$endif$
+
+% Title page and abstract
+$if(title)$
+\maketitle
+$if(abstract)$
+\begin{abstract}
+$abstract$
+\end{abstract}
+$endif$
+$endif$
+
+% Include any content before the main body
+$for(include-before)$
+$include-before$
+$endfor$
+
+% Table of contents configuration
+$if(toc)$
+$if(toc-title)$
+\renewcommand*\contentsname{$toc-title$} % Set the table of contents title if specified
+$endif$
+{
+$if(colorlinks)$
+\hypersetup{linkcolor=$if(toccolor)$$toccolor$$else$$endif$} % Set the TOC link color if specified
+$endif$
+\setcounter{tocdepth}{$toc-depth$} % Set the TOC depth
+\tableofcontents
+}
+$endif$
+
+% List of figures and tables
+$if(lof)$
+\listoffigures
+$endif$
+$if(lot)$
+\listoftables
+$endif$
+
+% Line spacing configuration
+$if(linestretch)$
+\setstretch{$linestretch$}
+$endif$
+
+% Main matter configuration
+$if(has-frontmatter)$
+\mainmatter
+$endif$
+
+% Main body content
+$body$
+
+% Back matter configuration
+$if(has-frontmatter)$
+\backmatter
+$endif$
+
+% Bibliography and citation configuration
+$if(nocite-ids)$
+\nocite{$for(nocite-ids)$$it$$sep$, $endfor$}
+$endif$
+$if(natbib)$
+$if(bibliography)$
+$if(biblio-title)$
+$if(has-chapters)$
+\renewcommand\bibname{$biblio-title$} % Set the bibliography title if specified
+$else$
+\renewcommand\refname{$biblio-title$} % Set the references title if specified
+$endif$
+$endif$
+\bibliography{$for(bibliography)$$bibliography$$sep$,$endfor$}
+$endif$
+$endif$
+$if(biblatex)$
+\printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
+$endif$
+
+% Include any content after the main body
+$for(include-after)$
+$include-after$
+$endfor$
+
+\end{document}

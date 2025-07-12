@@ -1,0 +1,16 @@
+#!/bin/bash
+
+source USER_PROFILE
+
+echo "Generating PDF for ${FIRST_NAME} ${LAST_NAME}..."
+
+output_file_name=$(echo "cv_${FIRST_NAME}_${LAST_NAME}" | tr '[:upper:]' '[:lower:]')
+
+pandoc -s cv.md \
+  -o outputs/"${output_file_name}".pdf \
+  -V mainfont="Calibri" \
+  -V colorlinks=true \
+  -V urlcolor=blue \
+  --pdf-engine=xelatex --template=./templates/default.tex
+
+echo "PDF generated at outputs/${output_file_name}.pdf"
