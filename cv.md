@@ -10,7 +10,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac neque nec sapi
 
 - **Cool Skill**: Lorem, Ipsum, Dolor
 - **Another Cool Skill**: Sit, Amet, Consectetur, Adipiscing
-- **Skillz*2**: Pellentesque, Habitasse, Morbi, Tristique
+- **Skillz**: Pellentesque, Habitasse, Morbi, Tristique
 
 ## Experience
 

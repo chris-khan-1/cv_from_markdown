@@ -1,0 +1,11 @@
+#!/bin/bash
+
+source USER_PROFILE
+
+echo "Generating Word Doc for ${FIRST_NAME} ${LAST_NAME}..."
+
+output_file_name=$(echo "cv_${FIRST_NAME}_${LAST_NAME}" | tr '[:upper:]' '[:lower:]')
+
+pandoc -s cv.md -o "outputs/${output_file_name}.docx"
+
+echo "Word Doc generated at outputs/${output_file_name}.docx"
