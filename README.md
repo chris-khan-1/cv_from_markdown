@@ -33,7 +33,7 @@ pre-commit run --all-files
 ### Install Miktex
 
 1. Register GPG Key - `curl -fsSL https://miktex.org/download/key | sudo gpg --dearmor -o /usr/share/keyrings/miktex.gpg`
-2. Register Installation Source (using Ubunut Jammy) - `echo "deb [signed-by=/usr/share/keyrings/miktex.gpg] https://miktex.org/download/ubuntu jammy universe" | sudo tee /etc/apt/sources.list.d/miktex.list`
+2. Register Installation Source (using Ubuntu Jammy) - `echo "deb [signed-by=/usr/share/keyrings/miktex.gpg] https://miktex.org/download/ubuntu jammy universe" | sudo tee /etc/apt/sources.list.d/miktex.list`
 3. Update and install - `sudo apt-get update`, `sudo apt-get install miktex`
 4. Finish setup - `miktexsetup finish`
 
