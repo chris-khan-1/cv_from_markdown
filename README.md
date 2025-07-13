@@ -1,14 +1,21 @@
-# How To Use
+# Generate a Professional CV from Markdown
 
-## User Information
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/pre-commit/pre-commit/main.svg)](https://results.pre-commit.ci/latest/github/pre-commit/pre-commit/main)
 
-Update the [`USER_PROFILE`](USER_PROFILE) file with your details.
+Generate a professional CV from Markdown using Pandoc and LaTeX.
 
-## Pre Commit
+## Getting Started
 
-The use of pre-commit is optional.
+1. **Update your profile:**
+   Edit [`USER_PROFILE`](USER_PROFILE) with your personal details.
 
-If you have Python `3.7` or newer, you can run the following commands:
+2. **Install dependencies:**
+   See platform-specific instructions below.
+
+## Pre-commit Hooks (Optional)
+
+If you have Python 3.7+, you can enable pre-commit hooks for code quality:
 
 ```bash
 pip install --requirement requirements.txt
@@ -16,38 +23,62 @@ pre-commit install
 pre-commit run --all-files
 ```
 
-## Windows
+## Windows Setup
 
-1. Download `pandoc` from the [pandoc release page](https://github.com/jgm/pandoc/releases).
-1. Install [`miktex`](https://miktex.org/download) and required packages.
-1. Run conversion script by entering `./to_pdf` in your bash terminal.
+1. [Download Pandoc](https://github.com/jgm/pandoc/releases).
+2. [Install MikTeX](https://miktex.org/download) and required packages.
+3. Run the conversion script:
 
-## WSL2 / Ubuntu
+   ```bash
+   ./to_pdf
+   ```
+
+   (Use a Bash terminal such as Git Bash.)
+
+## WSL2 / Ubuntu Setup
 
 ### Install Pandoc
 
-1. Download Release Package - `wget https://github.com/jgm/pandoc/releases/download/3.6.4/pandoc-3.6.4.1-amd64.deb`
-2. Install Package - `sudo dpkg -i pandoc-3.6.4-1-amd64.deb`
-3. Verify Installation: `pandoc -v`
+```bash
+wget https://github.com/jgm/pandoc/releases/download/3.6.4/pandoc-3.6.4-1-amd64.deb
+sudo dpkg -i pandoc-3.6.4-1-amd64.deb
+pandoc -v
+```
 
-### Install Miktex
+### Install MikTeX
 
-1. Register GPG Key - `curl -fsSL https://miktex.org/download/key | sudo gpg --dearmor -o /usr/share/keyrings/miktex.gpg`
-2. Register Installation Source (using Ubuntu Jammy) - `echo "deb [signed-by=/usr/share/keyrings/miktex.gpg] https://miktex.org/download/ubuntu jammy universe" | sudo tee /etc/apt/sources.list.d/miktex.list`
-3. Update and install - `sudo apt-get update`, `sudo apt-get install miktex`
-4. Finish setup - `miktexsetup finish`
+```bash
+curl -fsSL https://miktex.org/download/key | sudo gpg --dearmor -o /usr/share/keyrings/miktex.gpg
+echo "deb [signed-by=/usr/share/keyrings/miktex.gpg] https://miktex.org/download/ubuntu jammy universe" | sudo tee /etc/apt/sources.list.d/miktex.list
+sudo apt-get update
+sudo apt-get install miktex
+miktexsetup finish
+```
 
-Full instructions at [miktex.org](https://miktex.org/download)
+[Full instructions](https://miktex.org/download)
 
-### Install xelatex
+### Install XeLaTeX
 
-1. Install `sudo apt install texlive-xetex`
-2. Verify installation `xelatex -v`
+```bash
+sudo apt install texlive-xetex
+xelatex -v
+```
 
-### Install font package
+### Install Font Package
 
-1. Install `sudo apt-get install "fonts-crosextra-carlito"`
+```bash
+sudo apt-get install fonts-crosextra-carlito
+```
 
-### Run conversion script
+### Run Conversion Script
 
-Must be administrator: `sudo bash ./to_pdf`
+```bash
+sudo bash ./to_pdf
+```
+
+(Must be run as administrator.)
+
+## Troubleshooting
+
+- If you encounter missing LaTeX packages, install them via MikTeX or TeX Live.
+- For font issues, ensure the required fonts are installed.
