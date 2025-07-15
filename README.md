@@ -37,7 +37,11 @@ pre-commit run --all-files
 
 ## WSL2 / Ubuntu Setup
 
-### Install Pandoc
+Follow these steps to set up the required tools for generating your CV on WSL2 or Ubuntu.
+
+### 1. Install Pandoc
+
+Download and install Pandoc:
 
 ```bash
 wget https://github.com/jgm/pandoc/releases/download/3.6.4/pandoc-3.6.4-1-amd64.deb
@@ -45,7 +49,9 @@ sudo dpkg -i pandoc-3.6.4-1-amd64.deb
 pandoc -v
 ```
 
-### Install MikTeX
+### 2. Install MikTeX
+
+Add the MikTeX repository and install MikTeX:
 
 ```bash
 curl -fsSL https://miktex.org/download/key | sudo gpg --dearmor -o /usr/share/keyrings/miktex.gpg
@@ -55,20 +61,27 @@ sudo apt-get install miktex
 miktexsetup finish
 ```
 
-[Full instructions](https://miktex.org/download)
+Refer to the [official MikTeX instructions](https://miktex.org/download) for more details.
 
-### Install XeLaTeX
+### 3. Install XeLaTeX
+
+Install XeLaTeX for PDF generation:
 
 ```bash
 sudo apt install texlive-xetex
 xelatex -v
 ```
 
-### Install Font Package
+### 4. Install Font Package
+
+Install the recommended font package:
 
 ```bash
 sudo apt-get install fonts-crosextra-carlito
 ```
+
+**Note:** Calibri is not available on Ubuntu. The recommended alternative is the `Carlito` font.
+Update the `mainfont` setting in the [`to_pdf`](./scripts/to_pdf) script to use `Carlito`.
 
 ### Run Conversion Script
 
