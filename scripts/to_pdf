@@ -6,6 +6,7 @@ echo "Generating PDF for ${FIRST_NAME} ${LAST_NAME}..."
 
 output_file_name=$(echo "cv_${FIRST_NAME}_${LAST_NAME}" | tr '[:upper:]' '[:lower:]')
 
+# Change mainfont to Carlito is using Ubuntu
 pandoc -s cv.md \
   -o outputs/"${output_file_name}".pdf \
   -V mainfont="Calibri" \
